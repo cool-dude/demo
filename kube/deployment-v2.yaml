@@ -11,17 +11,14 @@ spec:
         version: v2
     spec:
       containers:
-      - name: web
+      - name: application
         image: learnk8s/demo:2.0.0
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 3000
         livenessProbe:
           initialDelaySeconds: 2
           periodSeconds: 5
           httpGet:
-            path: /healthz
+            path: /health
             port: 3000
-      - name: redis
-        image: redis:4.0.2-alpine
-        ports:
-          - containerPort: 6379

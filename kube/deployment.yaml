@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: helloworld
+  name: helloworld-v1
 spec:
   replicas: 1
   template:
@@ -11,17 +11,14 @@ spec:
         version: v1
     spec:
       containers:
-      - name: web
+      - name: application
         image: learnk8s/demo:1.0.0
+        imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 3000
         livenessProbe:
           initialDelaySeconds: 2
           periodSeconds: 5
           httpGet:
-            path: /healthz
+            path: /health
             port: 3000
-      - name: redis
-        image: redis:4.0.2-alpine
-        ports:
-          - containerPort: 6379
